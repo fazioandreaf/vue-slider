@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>        <title>Slideshow</title>
+    </head>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Lato';
+    }
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 auto;
+        padding: 0 15%;
+        height: 100vh;
+        background-color: lightskyblue;
+    }
+    .slider-wrapper {
+        position: relative;
+        width: 100%;
+    }
+    .slider-wrapper .images {
+        height: 100%;
+        text-align: center;
+    }
+    .slider-wrapper .images img {
+        display: none;
+        width: 100%;
+    }
+    .slider-wrapper .images img.active {
+        display: inline-block;
+    }
+    .prev, .next {
+        position: absolute;
+        color: white;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        font-size: 100px;
+        cursor: pointer; 
+        color: lightgray;
+    }
+    .next {
+        left: auto;
+        right: 0;
+    }
+    .nav {
+        position: absolute;
+        left: 50%;
+        bottom: 20px;
+        transform: translateX(-50%);
+        padding: 20px;
+        border-radius: 999px;
+        background: rgba(0,0,0,.7);
+        color: white;
+    }
+    .nav > i {
+        margin: 0 20px;
+    }
+    i.active {
+        color: blue;
+    }
+    .ball .fa {
+        cursor: pointer; 
+    }
+    .ball {
+        text-align: center;
+        color: lightgray;
+    }
+    </style>
+    <body>
+        <div class="container">
+            <div class="slider-wrapper">
+                <div class="prev">
+                    <i class="fas fa-angle-left"></i>
+                </div>
+                <div class="images">
+                    <img class="active" src="https://images.pexels.com/photos/371633/pexels-photo-371633.jpeg?cs=srgb&dl=clouds-country-daylight-371633.jpg&fm=jpg" data-value="1" alt="">
+                    <img src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-646511634.jpg" data-value="2" alt="">
+                    <img src="https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg" data-value="3" alt="">
+                    <img class="" src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-546424192.jpg" data-value="4" alt="">
+                </div>
+                <div class="next">
+                    <i class="fas fa-angle-right"></i>
+                </div>
+            </div>
+            <div class="ball">
+            </div>
+        </div>
+        <script>
+            function init(){
+    $('.next').click(function (){
+        var imgActive=$('.images .active');
+        var imgLast=$('.images img:last-child');
+        var imgNext=$('.images .active').next();
+        var ballActive=$('.ball .active');
+        var ballNext=$('.ball .active').next();
+        if(imgLast.hasClass('active')){
+            imgNext=$('.images img:first-child')
+            ballNext=$('.ball i:first-child')
+        }
+        imgActive.removeClass( 'active')
+        imgNext.addClass( 'active')
+        ballActive.removeClass('active')
+        ballNext.addClass('active')
+    })
+    $('.prev').click(function (){
+        var imgActive=$('.images .active');
+        var amgPrevue=$('.images img:first-child');
+        var imgNext=$('.images .active').prev();
+        var ballActive=$('.ball .active');
+        var ballNext=$('.ball .active').prev();
+        if(amgPrevue.hasClass('active')){
+            imgNext=$('.images img:last-child')
+            ballNext=$('.ball i:last-child')
+        }
+        imgActive.removeClass('active')
+        imgNext.addClass('active')
+        ballActive.removeClass('active')
+        ballNext.addClass('active')
+    })
+    function creationLi() {
+        let numberIMG=$('.images>img').length;
+        var manyLI='';
+        for(i=0;i<numberIMG;i++){
+            manyLI +='<i class="fa fa-circle" aria-hidden="true" data-value= '+ (i+1)+' ></i>';
+        }
+        $('.ball').html(manyLI)
+        $('.ball i:first-child').addClass('active')
+    }
+    creationLi()
+    $('.ball i').click(function() {
+        var prova=(this.dataset.value);
+        var imgActive=$('.images .active');
+        console.log(prova,imgActive[0].dataset.value)
+        if(prova!=imgActive[0].dataset.value){
+            console.log('ciaooo')
+        }
+        
+    })
+}
+$(document).ready(init)
+        </script>
+    </body>
+</html>
