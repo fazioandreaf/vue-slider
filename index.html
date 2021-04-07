@@ -129,6 +129,12 @@
                     data:{
                         'imgflip':1,
                     },
+                    mounted: function () {
+                        this.$nextTick(function () {
+                           setInterval(this.nextV,1000);
+                        })
+                    },
+                    
                     methods:{
                         prevueV: function(){
                         this.imgflip==1?this.imgflip=4:this.imgflip--
@@ -140,8 +146,7 @@
                         },
                         nextV: function() {
                         this.imgflip==4?this.imgflip=1:this.imgflip++
-                        }
-                        
+                        } 
                     }
                 })
                 // $('.next').click(next)
