@@ -24,7 +24,6 @@
         background-color: lightskyblue;
     }
     .slider-wrapper {
-        position: relative;
         width: 100%;
     }
     .slider-wrapper .images {
@@ -78,7 +77,7 @@
     </style>
     <body>
         <div class="container">
-            <div class="slider-wrapper">
+            <div class="slider-wrapper" id="slide">
                 <div class="prev">
                     <i class="fas fa-angle-left"></i>
                 </div>
@@ -96,58 +95,69 @@
             </div>
         </div>
         <script>
+            function next() {
+                let imgActive=$('.images .active');
+                let imgLast=$('.images img:last-child');
+                let imgNext=$('.images .active').next();
+                let ballActive=$('.ball .active');
+                let ballNext=$('.ball .active').next();
+                if(imgLast.hasClass('active')){
+                    imgNext=$('.images img:first-child')
+                    ballNext=$('.ball i:first-child')
+                }
+                imgActive.removeClass( 'active')
+                imgNext.addClass( 'active')
+                ballActive.removeClass('active')
+                ballNext.addClass('active')
+            }
+            function prevue(){
+                let imgActive=$('.images .active');
+                let amgPrevue=$('.images img:first-child');
+                let imgNext=$('.images .active').prev();
+                let ballActive=$('.ball .active');
+                let ballNext=$('.ball .active').prev();
+                if(amgPrevue.hasClass('active')){
+                    imgNext=$('.images img:last-child')
+                    ballNext=$('.ball i:last-child')
+                }
+                imgActive.removeClass('active')
+                imgNext.addClass('active')
+                ballActive.removeClass('active')
+                ballNext.addClass('active')
+            }
             function init(){
-    $('.next').click(function (){
-        var imgActive=$('.images .active');
-        var imgLast=$('.images img:last-child');
-        var imgNext=$('.images .active').next();
-        var ballActive=$('.ball .active');
-        var ballNext=$('.ball .active').next();
-        if(imgLast.hasClass('active')){
-            imgNext=$('.images img:first-child')
-            ballNext=$('.ball i:first-child')
-        }
-        imgActive.removeClass( 'active')
-        imgNext.addClass( 'active')
-        ballActive.removeClass('active')
-        ballNext.addClass('active')
-    })
-    $('.prev').click(function (){
-        var imgActive=$('.images .active');
-        var amgPrevue=$('.images img:first-child');
-        var imgNext=$('.images .active').prev();
-        var ballActive=$('.ball .active');
-        var ballNext=$('.ball .active').prev();
-        if(amgPrevue.hasClass('active')){
-            imgNext=$('.images img:last-child')
-            ballNext=$('.ball i:last-child')
-        }
-        imgActive.removeClass('active')
-        imgNext.addClass('active')
-        ballActive.removeClass('active')
-        ballNext.addClass('active')
-    })
-    function creationLi() {
-        let numberIMG=$('.images>img').length;
-        var manyLI='';
-        for(i=0;i<numberIMG;i++){
-            manyLI +='<i class="fa fa-circle" aria-hidden="true" data-value= '+ (i+1)+' ></i>';
-        }
-        $('.ball').html(manyLI)
-        $('.ball i:first-child').addClass('active')
-    }
-    creationLi()
-    $('.ball i').click(function() {
-        var prova=(this.dataset.value);
-        var imgActive=$('.images .active');
-        console.log(prova,imgActive[0].dataset.value)
-        if(prova!=imgActive[0].dataset.value){
-            console.log('ciaooo')
-        }
-        
-    })
-}
-$(document).ready(init)
+                new Vue({
+                    el: '#slide',
+                    data:{
+                        
+                    },
+                    methods:{
+                        
+                    }
+                })
+                $('.next').click(next)
+                $('.prev').click(prevue)
+                function creationLi() {
+                    let numberIMG=$('.images>img').length;
+                    let manyLI='';
+                    for(i=0;i<numberIMG;i++){
+                        manyLI +='<i class="fa fa-circle" aria-hidden="true" data-value= '+ (i+1)+' ></i>';
+                    }
+                    $('.ball').html(manyLI)
+                    $('.ball i:first-child').addClass('active')
+                }
+                creationLi()
+                $('.ball i').click(function() {
+                    let ex=(this.dataset.value);
+                    let imgActive=$('.images .active');
+                    console.log(ex,imgActive[0].dataset.value)
+                    if(ex!=imgActive[0].dataset.value){
+                        console.log('Hello')
+                    }
+                    
+                })
+            }
+            $(init)
         </script>
     </body>
 </html>
