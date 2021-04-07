@@ -32,11 +32,8 @@
         text-align: center;
     }
     .slider-wrapper .images img {
-        display: none;
-        width: 100%;
-    }
-    .slider-wrapper .images img.active {
         display: inline-block;
+        width: 100%;
     }
     .prev, .next {
         position: absolute;
@@ -83,13 +80,13 @@
                     <i class="fas fa-angle-left" @click="prevueV"></i>
                 </div>
                 <div class="images">
-                    <img v-if="imgflip=1"class="active" src="https://images.pexels.com/photos/371633/pexels-photo-371633.jpeg?cs=srgb&dl=clouds-country-daylight-371633.jpg&fm=jpg" data-value="1" alt="">
-                    <img v-if="imgflip=2"src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-646511634.jpg" data-value="2" alt="">
-                    <img v-if="imgflip=3"src="https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg" data-value="3" alt="">
-                    <img v-if="imgflip=4"class="" src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-546424192.jpg" data-value="4" alt="">
+                    <img v-if="imgflip==1" src="https://images.pexels.com/photos/371633/pexels-photo-371633.jpeg?cs=srgb&dl=clouds-country-daylight-371633.jpg&fm=jpg" >
+                    <img v-if="imgflip==2" src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-646511634.jpg" >
+                    <img v-if="imgflip==3" src="https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg" >
+                    <img v-if="imgflip==4" src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-546424192.jpg" >
                 </div>
                 <div class="next" >
-                    <i class="fas fa-angle-right"></i>
+                    <i class="fas fa-angle-right" @click="nextV"></i>
                 </div>
             </div>
             <div class="ball">
@@ -134,21 +131,25 @@
                     },
                     methods:{
                         prevueV: function(){
-                            if(this.imgflip=1){
-                                this.imgflip++;
-                                console.log(this.imgflip)
-                            }
+                        this.imgflip==1?this.imgflip=4:this.imgflip--
+                            // if(this.imgflip==1){
+                            //     this.imgflip=4;
+                            // }else {
+                            //     this.imgflip--;
+                            // }
                         },
+                        nextV: function() {
+                        this.imgflip==4?this.imgflip=1:this.imgflip++
+                        }
                         
                     }
                 })
-                $('.next').click(next)
+                // $('.next').click(next)
                 // $('.prev').click(prevue)
                 function creationLi() {
-                    let numberIMG=$('.images>img').length;
                     let manyLI='';
-                    for(i=0;i<numberIMG;i++){
-                        manyLI +='<i class="fa fa-circle" aria-hidden="true" data-value= '+ (i+1)+' ></i>';
+                    for(i=0;i<4;i++){
+                        manyLI +='<i class="fa fa-circle" aria-hidden="true" v-if="imgflip=='+(i+1)+'" ></i>';
                     }
                     $('.ball').html(manyLI)
                     $('.ball i:first-child').addClass('active')
