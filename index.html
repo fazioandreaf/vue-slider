@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>        <title>Slideshow</title>
     </head>
     <style>
@@ -79,15 +80,15 @@
         <div class="container">
             <div class="slider-wrapper" id="slide">
                 <div class="prev">
-                    <i class="fas fa-angle-left"></i>
+                    <i class="fas fa-angle-left" @click="prevueV"></i>
                 </div>
                 <div class="images">
-                    <img class="active" src="https://images.pexels.com/photos/371633/pexels-photo-371633.jpeg?cs=srgb&dl=clouds-country-daylight-371633.jpg&fm=jpg" data-value="1" alt="">
-                    <img src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-646511634.jpg" data-value="2" alt="">
-                    <img src="https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg" data-value="3" alt="">
-                    <img class="" src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-546424192.jpg" data-value="4" alt="">
+                    <img v-if="imgflip=1"class="active" src="https://images.pexels.com/photos/371633/pexels-photo-371633.jpeg?cs=srgb&dl=clouds-country-daylight-371633.jpg&fm=jpg" data-value="1" alt="">
+                    <img v-if="imgflip=2"src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-646511634.jpg" data-value="2" alt="">
+                    <img v-if="imgflip=3"src="https://cdn.mos.cms.futurecdn.net/FUE7XiFApEqWZQ85wYcAfM.jpg" data-value="3" alt="">
+                    <img v-if="imgflip=4"class="" src="https://static.photocdn.pt/images/articles/2017/04/28/iStock-546424192.jpg" data-value="4" alt="">
                 </div>
-                <div class="next">
+                <div class="next" >
                     <i class="fas fa-angle-right"></i>
                 </div>
             </div>
@@ -129,14 +130,20 @@
                 new Vue({
                     el: '#slide',
                     data:{
-                        
+                        'imgflip':1,
                     },
                     methods:{
+                        prevueV: function(){
+                            if(this.imgflip=1){
+                                imgflip=4
+                                console.log(imgflip)
+                            }
+                        }
                         
                     }
                 })
                 $('.next').click(next)
-                $('.prev').click(prevue)
+                // $('.prev').click(prevue)
                 function creationLi() {
                     let numberIMG=$('.images>img').length;
                     let manyLI='';
