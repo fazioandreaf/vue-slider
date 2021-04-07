@@ -72,6 +72,9 @@
         text-align: center;
         color: lightgray;
     }
+    .ciao{
+        width: 50px;
+    }
     </style>
     <body>
         <div class="container">
@@ -128,10 +131,11 @@
                     el: '#slide',
                     data:{
                         'imgflip':1,
+                        'imgflipball':1
                     },
                     mounted: function () {
                         this.$nextTick(function () {
-                           setInterval(this.nextV,1000);
+                           setInterval(this.nextV,4000);
                         })
                     },
                     
@@ -151,10 +155,13 @@
                 })
                 // $('.next').click(next)
                 // $('.prev').click(prevue)
+                function active(){
+                console.log(imgflipball);   
+                }
                 function creationLi() {
                     let manyLI='';
                     for(i=0;i<4;i++){
-                        manyLI +='<i class="fa fa-circle" aria-hidden="true" v-if="imgflip=='+(i+1)+'" ></i>';
+                        manyLI +='<i class="fa fa-circle" :class="'+active()+'"   v-if="imgflipball=='+(i+1)+'" ></i>';
                     }
                     $('.ball').html(manyLI)
                     $('.ball i:first-child').addClass('active')
